@@ -27,12 +27,29 @@ public class UserController {
 	
 	@Autowired
 	ReserveService reserveService;
+		@Autowired
+	UserService userService;
+
+
+	@RequestMapping("/login")
+	public String showLogin() {
+		return "login";
+	}
+	
+	@RequestMapping("/loggedout")
+	public String showLogout() {
+		return "loggedout";
+	}
+	
+	
+	
 
 	
 	
 	
 
 
+<<<<<<< HEAD
 	@RequestMapping(value = "/reservebook", method = RequestMethod.POST)
 	public String createReserveBook(@Validated(FormValidationGroup.class) Reserve reserve, BindingResult result, Principal principal) {
 		
@@ -61,10 +78,38 @@ public class UserController {
 		model.addAttribute("reserves", reserves);
 		System.out.println(reserves);
 	
+=======
+	
+	
+	@RequestMapping("/createaccount")
+	public String createAccount(Model model, Principal principal) {
+		
+		model.addAttribute("user", new User());
+		
+		return "createaccount";
+	}
+
+	@RequestMapping(value = "/createuser", method = RequestMethod.POST)
+	public String createUser(@Validated(FormValidationGroup.class) User user, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "createaccount";
+		}
+
+		user.setAuthority("ROLE_USER");
+		user.setEnabled(true);
+
+		userService.create(user);
+>>>>>>> 2ef51dfe65a5db8008aaeb41cb81da0ddb0e3680
 		
 		return "home";
 
 	}
+<<<<<<< HEAD
+=======
+
+	
+>>>>>>> 2ef51dfe65a5db8008aaeb41cb81da0ddb0e3680
 	
 
 }
